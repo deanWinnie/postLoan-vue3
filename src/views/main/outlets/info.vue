@@ -164,7 +164,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="移交渠道" prop="transferChannel" align="center"  v-if="setChannelStatus == false && type!=9"/>
+        <el-table-column label="移交渠道" prop="transferChannel" align="center" :formatter="channelFormat" v-if="setChannelStatus == false && type!=9"/>
         <el-table-column 
           label="移交渠道" 
           prop="districtName" 
@@ -293,6 +293,17 @@ export default defineComponent({
       districtList({size:1000}).then(res=>{
         districtData.value = (res as any).page.records;
       })
+    }
+    //格式化渠道
+    const channelFormat = (row:any)=>{
+      for(let i = 0; i<channelData.value.length;i++){
+        if(channelData.value[i].id == 0){
+          return ''
+        }
+        if(channelData.value[i].id == row.transferChannel){
+          return channelData.value[i].name
+        }
+      }
     }
     //获取所有渠道
     const getChannelData = ()=>{
@@ -451,7 +462,8 @@ export default defineComponent({
       setRecord,
       openOverdueBill,
       openClientList,
-      dialogClientBack
+      dialogClientBack,
+      channelFormat
     }
   }
 })

@@ -22,22 +22,6 @@
           />
           </el-select>
         </el-form-item>
-        <el-form-item label="客户状态" prop="status">
-          <el-select v-model="queryParams.status" prop="status">
-            <el-option key="1" label="正常" value="1"></el-option>
-            <el-option key="2" label="已结清" value="2"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="结清未还清" prop="clearStatus">
-          <el-select v-model="queryParams.clearStatus" prop="clearStatus">
-            <el-option key="1" label="是" value="1"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="到期未结清" prop="dueStatus" >
-          <el-select v-model="queryParams.dueStatus"  prop="dueStatus" >
-            <el-option key="1" label="是" value="1"></el-option>
-          </el-select>
-        </el-form-item>
         <el-form-item label="授信周期" prop="repaymentData" >
           <el-date-picker
             v-model="queryParams.repaymentData"
@@ -46,46 +30,22 @@
           >
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="是否异常" prop="abnormalStatus">
-          <el-select v-model="queryParams.abnormalStatus" >
-            <el-option key="0" label="否" value="0"></el-option>
-            <el-option key="1" label="是" value="1"></el-option>
-          </el-select>
-        </el-form-item>
         <el-form-item label="所属渠道" prop="channelId">
           <el-select v-model="queryParams.channelId" >
             <el-option v-for="(item) in channelData" :key="item.id" :label="item.name" :value="item.id"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="续贷状态" prop="refinanceStatus">
-          <el-select v-model="queryParams.refinanceStatus" >
-            <el-option key="0" label="成功" value="success"></el-option>
-            <el-option key="1" label="失败" value="fail"></el-option>
-            <el-option key="2" label="待定" value="waiting"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="getTableData(true)" :icon="Search">搜索</el-button>
           <el-button :icon="Refresh" size="small" @click="resetQuery">重置</el-button>
         </el-form-item>
-      </el-form>
-    </div>
-    <div class="layout-container-form flex space-between">
-      <el-form  :inline="true">
         <el-form-item v-if="type != 9">
-        <el-switch
-          v-model="setLabelStatus"
-          active-text="启用设置标签"
-          inactive-text="暂停设置标签">
-        </el-switch>
-      </el-form-item>
-      <el-form-item v-if="type != 9">
-        <el-switch
-          v-model="setChannelStatus"
-          active-text="启用移交渠道"
-          inactive-text="暂停移交渠道">
-        </el-switch>
-      </el-form-item>
+          <el-switch
+            v-model="setLabelStatus"
+            active-text="启用设置标签"
+            inactive-text="暂停设置标签">
+          </el-switch>
+        </el-form-item>
       </el-form>
     </div>
     <div class="layout-container-table">
@@ -94,12 +54,13 @@
         v-model:page="page"
         v-loading="loading"
         :data="tableData"
+        :showTableRowClassName = 'true'
         @getTableData="getTableData"
       >
         <el-table-column prop="name" label="客户名称" align="center" >
           <template #default="scope">
             <div></div>
-            <el-button :class="{'col-red':(scope.row.user.refinanceStatus == 'fail'),'col-yellow':(scope.row.user.refinanceStatus== 'waiting')}" @click="toClientDetails(scope.row.creditId,scope.$index)" link >
+            <el-button  @click="toClientDetails(scope.row.creditId,scope.$index)" link >
               {{scope.row.user.idName}}
             </el-button>
           </template>
@@ -200,39 +161,18 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column label="移交渠道" prop="transferChannel" align="center" :formatter="channelFormat"  v-if="setChannelStatus == false && type!=9"/>
-        <el-table-column 
-          label="移交渠道" 
-          v-if="setChannelStatus == true && type!=9"
-          align="center">
-          <template  #default="scope">
-            <el-select
-              v-model="scope.row.transferChannel "
-              @change="setChannel(scope.row)"
-              clearable
-              size="small"
-            >
-              <el-option
-                v-for="dict in channelData"
-                :key="dict.id"
-                :label="dict.name"
-                :value="dict.id"
-              />
-            </el-select>
+        <el-table-column label="移交法务" 
+          prop="labelName" 
+          align="center"
+          width="120"
+        >
+          <template #default="scope">
+            <el-button link @click="setLaw(scope.row)" v-if="scope.row.transferLegal == 0">移交</el-button>
+            <!-- <el-button link @click="setLaw(scope.row)" v-else>撤回</el-button> -->
+            <p v-if="scope.row.transferLegal == 1">待接收</p>
+            <p v-if="scope.row.transferLegal == 2">已接收</p>
           </template>
         </el-table-column>
-        <el-table-column label="移交法务" 
-      prop="labelName" 
-      align="center"
-      width="120"
-    >
-      <template #default="scope">
-        <el-button link @click="setLaw(scope.row)" v-if="scope.row.transferLegal == 0">移交</el-button>
-        <!-- <el-button link @click="setLaw(scope.row)" v-else>撤回</el-button> -->
-        <p v-if="scope.row.transferLegal == 1">待接收</p>
-        <p v-if="scope.row.transferLegal == 2">已接收</p>
-      </template>
-    </el-table-column>
       </Table>
     </div>
   </div>
@@ -248,13 +188,13 @@ import FollowUpRecord from './component/FollowUpRecord.vue'
 import SetRecorde from './component/SetRecorde.vue'
 import Bill from './component/Bill.vue'
 import { Page } from '@/components/table/type'
-import { districtList,labelList,setDistrict,setLabel} from '@/api/outlets'
+import { districtList,labelList,setLabel} from '@/api/outlets'
 import { listForLoan,getChannelList,setTransferLegal,setTransferChannel} from '@/api/client'
 import { typeData } from './enum'
 import { Plus, Search, Delete,Refresh } from '@element-plus/icons'
 import useGlobalProperties from "@/utils/common/useGlobalProperties";
 export default defineComponent({
-  name: 'OutletsInfo',
+  name: 'LawClient',
   components: {
     Table,
     FollowUpRecord,
@@ -265,7 +205,7 @@ export default defineComponent({
     const proxy = useGlobalProperties();
     // 存储搜索用的数据
     const queryParams:any = reactive({
-      type:0,
+      type:5, //0--所有客户，1--账单逾期，2--银行逾期，3--代偿  4--移交渠道客户 5--移交法务渠道客户
       networkName:'',
       labelId:null,
       districtId:null,
@@ -276,7 +216,7 @@ export default defineComponent({
       dueStatus:null,
       clearStatus:null,
       status:null,
-      idName:null
+      idName:null,
     })
     // 分页参数, 供table使用
     const page: Page = reactive({
@@ -306,6 +246,7 @@ export default defineComponent({
       queryParams.networkName=''
       queryParams.labelId=null
       queryParams.districtId=null
+      queryParams.overdueSort=null
       getTableData(false)
     }
     // 获取表格数据

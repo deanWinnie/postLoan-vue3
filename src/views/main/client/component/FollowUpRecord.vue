@@ -1,5 +1,5 @@
 <template>
- <el-dialog title="跟进记录" v-model="dialogOpen" @open="openList('ledger')" :before-close = "handlepVisibleClose" width="1500px" append-to-body custom-class="record-dialog" >
+ <el-dialog title="跟进记录" v-model="dialogOpen" @open="openList('ledger')" :before-close = "handlepVisibleClose" width="1500px" append-to-body  >
   <el-row>
     <el-col :span="6" class="text-align-c">
       <el-button type="primary" @click="openList('ledger')" :disabled="listType === 'ledger'">台账记录</el-button>
@@ -36,24 +36,6 @@
           </template>
         </el-table-column>
         <el-table-column prop="traceUser" label="备忘人" align="left"/>
-        <el-table-column prop="addTime" label="跟进时间" align="left"
-        >
-          <template #default="scope">
-            {{ proxy.$moment(scope.row.addTime*1000).format("YYYY-MM-DD HH:mm:ss") }}
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-table :data="lawList" v-show="listType === 'law'"  :span-method="objectSpanMethod">
-        <el-table-column prop="networkName" label="网点名称" align="left"/>
-        <el-table-column prop="lawsuitUser" label="涉诉人" align="left"/>
-        <el-table-column prop="lawsuitContent" label="诉讼内容" align="left"/>
-        <el-table-column label="付款" prop="payment" align="left"/>
-        <el-table-column label="跟进时间" prop="contentAddtime" align="left" width="170">
-          <template #default="scope">
-            {{ scope.row.contentAddtime?proxy.$moment(scope.row.contentAddtime * 1000).format("YYYY-MM-DD HH:mm:ss"):''}}
-          </template>
-        </el-table-column>
-        <el-table-column prop="traceUser" label="跟进人" align="left"/>
         <el-table-column prop="addTime" label="跟进时间" align="left"
         >
           <template #default="scope">
@@ -116,9 +98,9 @@ export default defineComponent({
     const proxy = useGlobalProperties()
     let listType = ref('ledger')
     const ledgerList = ref([])
-    const lawList:any = ref([])
     const memoList = ref([])
     const serviceList = ref([])
+    const creditFailList = ref([])
     let spanArr:any = ref([])
     let dialogOpen = ref(false)
     // 对props中的数据进行监听
@@ -162,7 +144,7 @@ export default defineComponent({
     //获取授信失败记录
     const getCreditFailList = (params:any) =>{
       creditRecord(params,{page:1,size:2000}).then(res=>{
-        serviceList.value = (res as any).page.records;
+        creditFailList.value = (res as any).page.records;
       })
     }
     //把控制弹窗的参数传回父组件
@@ -174,9 +156,9 @@ export default defineComponent({
       proxy,
       listType,
       ledgerList,
-      lawList,
       memoList,
       serviceList,
+      creditFailList,
       dialogOpen,
       spanArr,
       openList,

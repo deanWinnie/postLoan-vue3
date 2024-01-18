@@ -103,7 +103,15 @@ const lang = {
       },
       client:{
         info:'客户信息',
-        manage:'客户管理'
+        manage:'客户管理',
+        clientDetails:'客户详情',
+        billOverdueClient:'账单逾期客户',
+        overdueClient:'银行逾期客户',
+        compensateClient:'代偿',
+        channelClient:'移交渠道客户',
+        lawClient:'移交法务客户',
+        grade:'客户标签',
+        bill:'账单信息'
       },
       
       community: {

@@ -8,6 +8,7 @@
       height="100%"
       :data="data"
       @selection-change="handleSelectionChange"
+      :row-class-name="tableRowClassName"
     >
       <el-table-column type="selection" align="center" width="50" v-if="showSelection" />
       <el-table-column label="序号" width="60" align="center" v-if="showIndex">
@@ -43,6 +44,7 @@ export default defineComponent({
     showIndex: { type: Boolean, default: false }, // 是否展示index选择，默认否
     showSelection: { type: Boolean, default: false }, // 是否展示选择框，默认否
     showPage: { type: Boolean, default: true }, // 是否展示页级组件，默认是
+    showTableRowClassName:{ type: Boolean, default: false }, //是否展示表格行变色，默认否
     page: { // 分页参数
       type: Object,
       default: () => {
@@ -77,6 +79,18 @@ export default defineComponent({
     const handleSelectionChange = (val: []) =>{
       context.emit("selection-change", val)
     }
+    //设置背景色
+    const tableRowClassName = ({row}:any)=>{
+      if(!props.showTableRowClassName){
+        return
+      }
+      if(row.todayMemo === 1){
+        return 'warning-row';
+      }
+      if(row.prompt === true){
+        return 'hint-row';
+      }
+    }
     // 解决BUG：keep-alive组件使用时，表格浮层高度不对的问题
     onActivated(() => {
       table.value.doLayout()
@@ -85,7 +99,8 @@ export default defineComponent({
       table,
       handleCurrentChange,
       handleSizeChange,
-      handleSelectionChange
+      handleSelectionChange,
+      tableRowClassName
     }
   }
 })
@@ -106,5 +121,11 @@ export default defineComponent({
     .system-page-table {
       margin-top: 20px;
     }
+  }
+  :deep(.el-table .warning-row) {
+    background: #FFB90F;
+  }
+  :deep(.el-table .hint-row) {
+    background: #fae5e5;
   }
 </style>

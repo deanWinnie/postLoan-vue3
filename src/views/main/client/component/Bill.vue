@@ -1,6 +1,6 @@
 <template>
 <el-dialog title="逾期账单" v-model="dialogOpen" @open="getList" :before-close = "handlepVisibleClose" width="1500px" append-to-body>
-  <el-table :data="overdueBillList" class="checkRemarkModal" >
+  <el-table :data="billList" class="checkRemarkModal" >
     <el-table-column prop="user.idName" label="账单用户" align="center"/>
     <el-table-column prop="user.phone" label="用户电话" align="center" width="120"/>
     <el-table-column
@@ -64,12 +64,16 @@
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted,watch} from 'vue'
 import useGlobalProperties from "@/utils/common/useGlobalProperties"
-import { getOverdueBillForNetworkId } from '@/api/outlets'
+import { getBillList,getDetailByMergeNo,getDetailByBillNo } from '@/api/client'
 export default defineComponent({
-  props:['openBillRecord','billParams'],
+  props: {
+    openBillRecord:{type:Boolean},
+    billParams:{type:Object},
+    type:{type:Number,default:1}
+  },
   setup(props,context){
     const proxy = useGlobalProperties()
-    const overdueBillList = ref([])
+    const billList:any = ref([])
     let dialogOpen = ref(false)
     // 对props中的数据进行监听
     watch(() => props.openBillRecord, (newX:boolean) => {
@@ -79,18 +83,30 @@ export default defineComponent({
     //把控制弹窗的参数传回父组件
     const handlepVisibleClose = (done:any)=>{
       context.emit("dialogBillBack", !dialogOpen.value)
-      overdueBillList.value = []
+      billList.value = []
       done()
     }
     const getList = ()=>{
-      getOverdueBillForNetworkId(props.billParams).then(res => {
-        overdueBillList.value = (res as any).result;
-        }
-      )
+      if(props.type === 1){
+        getBillList({...props.billParams,status:1}).then(res => {
+          billList.value = (res as any).page.records;
+          }
+        )
+      }else if(props.type === 2){
+        getDetailByBillNo({...props.billParams,status:1}).then(res => {
+          billList.value[0] = (res as any).result;
+          }
+        )
+      }else if(props.type === 3){
+        getDetailByMergeNo({...props.billParams,status:1}).then(res => {
+          billList.value = (res as any).result;
+          }
+        )
+      }
     }
     return{
       proxy,
-      overdueBillList,
+      billList,
       dialogOpen,
       handlepVisibleClose,
       getList

@@ -35,3 +35,38 @@ export function getExamineDetail(params:object) {
     params
   })
 }
+
+//查看账单
+export function getBillList(params:object) {
+  return request({
+    url: 'api/bill/list',
+    method: 'get',
+    params
+  })
+}
+
+//查看父账单
+export function getDetailByBillNo(params:object) {
+  return request({
+    url: 'api/bill/getDetailByBillNo',
+    method: 'get',
+    params
+  })
+}
+//查看合并账单
+export function getDetailByMergeNo(params:object) {
+  return request({
+    url: 'api/bill/getDetailByMergeNo',
+    method: 'get',
+    params
+  })
+}
+
+//设置移交渠道
+export function setTransferChannel(params:object) {
+  return request({
+    url: 'api/user/setTransferChannel',
+    method: 'post',
+    params
+  })
+}

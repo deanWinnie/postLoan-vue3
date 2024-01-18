@@ -1,5 +1,5 @@
 <template>
- <el-dialog title="跟进记录" v-model="dialogOpen" @open="openList('ledger')" :before-close = "handlepVisibleClose" width="1500px" append-to-body custom-class="record-dialog" >
+ <el-dialog title="跟进记录" v-model="dialogOpen" @open="openList('ledger')" :before-close = "handlepVisibleClose" width="1500px" append-to-body  >
   <el-row>
     <el-col :span="8" class="text-align-c">
       <el-button type="primary" @click="openList('ledger')" :disabled="listType === 'ledger'">台账记录</el-button>
