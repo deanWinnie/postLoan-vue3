@@ -113,7 +113,14 @@ const lang = {
         grade:'客户标签',
         bill:'账单信息'
       },
-      
+      progressManage:{
+        name: '跟进管理',
+        bwlProcess:'备忘录记录',
+        kfProcess:'客服记录',
+        tzProcess:'台账记录',
+        fwProcess:'法务记录',
+        sxProcess:'授信失败记录'
+      },
       community: {
         name: '社区的力量',
         qq: 'QQ交流群',

@@ -21,6 +21,7 @@ import Community from '../modules/community'
 import Tab from '../modules/tab'
 import Account from '../modules/account'
 import Client from '../modules/client'
+import ProgressManage from '../modules/progressManage'
 
 /** 登录后需要动态加入的本地路由 */
 const FrontRoutes: Route[] = [
@@ -29,6 +30,7 @@ const FrontRoutes: Route[] = [
   ...Account,
   ...Outlets,
   ...Client,
+  ...ProgressManage,
   ...Document,
   ...Component,
   ...Pages,
