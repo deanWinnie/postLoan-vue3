@@ -3,7 +3,7 @@ import request from '@/utils/system/request'
 //获取
 export function traceRecord(data:object) {
   return request({
-    url: 'api/traceRecord/statistics',
+    url: 'traceRecord/statistics',
     method: 'get',
     params:data
   })
@@ -11,7 +11,7 @@ export function traceRecord(data:object) {
 
 export function memoRecord(data:object) {
   return request({
-    url: 'api/memoRecord/statistics',
+    url: 'memoRecord/statistics',
     method: 'get',
     params:data
   })
@@ -19,7 +19,7 @@ export function memoRecord(data:object) {
 
 export function callRecord(data:object) {
   return request({
-    url: 'api/callRecord/statistics',
+    url: 'callRecord/statistics',
     method: 'get',
     params:data
   })
@@ -27,7 +27,7 @@ export function callRecord(data:object) {
 
 export function creditRefuseRecord(data:object) {
   return request({
-    url: 'api/creditRefuseRecord/statistics',
+    url: 'creditRefuseRecord/statistics',
     method: 'get',
     params:data
   })
@@ -35,7 +35,7 @@ export function creditRefuseRecord(data:object) {
 
 export function lawsuitRecord(data:object) {
   return request({
-    url: 'api/lawsuitRecord/statistics',
+    url: 'lawsuitRecord/statistics',
     method: 'get',
     params:data
   })

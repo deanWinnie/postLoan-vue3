@@ -37,12 +37,12 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
       open: true,
       proxy: { // 代理配置
         '/dev': 'https://www.fastmock.site/mock/48cab8545e64d93ff9ba66a87ad04f6b/',
-        '/api': {
-          // target: 'http://127.0.0.1:8000',
-          target: ' http://api.loan.fhbvip.cn/hxbloan-loan/',
-          changeOrigin: true,
-          rewrite: path => path.replace(/^\/api/, '')
-        }
+        // '/api': {
+        //   // target: 'http://127.0.0.1:8000',
+        //   target: ' http://api.loan.fhbvip.cn/hxbloan-loan/',
+        //   changeOrigin: true,
+        //   rewrite: path => path.replace(/^\/api/, '')
+        // }
       },
     },
     build: {

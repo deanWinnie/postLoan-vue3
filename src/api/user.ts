@@ -3,7 +3,7 @@ import request from '@/utils/system/request'
 /** 登录api */
 export function loginApi(data: object) {
   return request({
-    url: 'api/admin/auth/login',
+    url: 'admin/auth/login',
     method: 'post',
     params:data
   })

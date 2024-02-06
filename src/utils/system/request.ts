@@ -12,6 +12,8 @@ const service: AxiosInstance = axios.create({
 service.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // JWT鉴权处理
+    // config.url = 'api/'+config.url
+    // console.log(config.url)
     if (store.getters['user/token']) {
       config.headers['token'] = store.state.user.token
     }

@@ -4,7 +4,7 @@ import request from '@/utils/system/request'
 // 获取列表数据
 export function networkList(params:object) {
   return request({
-    url: 'api/network/networkList',
+    url: 'network/networkList',
     method: 'post',
     params
   })
@@ -12,7 +12,7 @@ export function networkList(params:object) {
 
 export function getOverdueBillForNetworkId(params:object) {
   return request({
-    url: 'api//bill/getOverdueBillForNetworkId',
+    url: '/bill/getOverdueBillForNetworkId',
     method: 'get',
     params
   })
@@ -21,7 +21,7 @@ export function getOverdueBillForNetworkId(params:object) {
 //网点区域列表
 export function districtList(params:object) {
   return request({
-    url: 'api/district/list',
+    url: 'district/list',
     method: 'get',
     params
   })
@@ -30,7 +30,7 @@ export function districtList(params:object) {
 // 获取所有渠道商
 export function getChannelList(params:object) {
   return request({
-    url: 'api/network/getChannelList',
+    url: 'network/getChannelList',
     method: 'get',
     params
   })
@@ -39,7 +39,7 @@ export function getChannelList(params:object) {
 //标签列表
 export function labelList(params:object) {
   return request({
-    url: 'api/label/list',
+    url: 'label/list',
     method: 'get',
     params
   })
@@ -48,7 +48,7 @@ export function labelList(params:object) {
 //设置网点区域
 export function setDistrict(params:object) {
   return request({
-    url: 'api/network/setDistrict',
+    url: 'network/setDistrict',
     method: 'post',
     params
   })
@@ -57,7 +57,7 @@ export function setDistrict(params:object) {
 //设置移交渠道
 export function setTransferChannel(params:object) {
   return request({
-    url: 'api/network/setTransferChannel',
+    url: 'network/setTransferChannel',
     method: 'post',
     params
   })
@@ -66,7 +66,7 @@ export function setTransferChannel(params:object) {
 //设置标签
 export function setLabel(params:object) {
   return request({
-    url: 'api/network/setLabel',
+    url: 'network/setLabel',
     method: 'post',
     params
   })
@@ -77,7 +77,7 @@ export function setLabel(params:object) {
 //新增网点区域
 export function addDistrict(data:object) {
   return request({
-    url: 'api/district/addDistrict',
+    url: 'district/addDistrict',
     method: 'post',
     data
   })
@@ -86,7 +86,7 @@ export function addDistrict(data:object) {
 //修改网点区域
 export function editDistrict(data:object) {
   return request({
-    url: 'api/district/editDistrict',
+    url: 'district/editDistrict',
     method: 'post',
     data
   })
@@ -95,7 +95,7 @@ export function editDistrict(data:object) {
 //删除网点区域
 export function deleteDistrict(params:object) {
   return request({
-    url: 'api/district/deleteDistrict',
+    url: 'district/deleteDistrict',
     method: 'post',
     params
   })
@@ -105,7 +105,7 @@ export function deleteDistrict(params:object) {
 //新增标签
 export function addLabel(data:object) {
   return request({
-    url: 'api/label/addLabel',
+    url: 'label/addLabel',
     method: 'post',
     data
   })
@@ -114,7 +114,7 @@ export function addLabel(data:object) {
 //修改标签
 export function editLabel(data:object) {
   return request({
-    url: 'api/label/editLabel',
+    url: 'label/editLabel',
     method: 'post',
     data
   })
@@ -124,7 +124,7 @@ export function editLabel(data:object) {
 //删除标签
 export function deleteLabel(params:object) {
   return request({
-    url: 'api/label/deleteLabel',
+    url: 'label/deleteLabel',
     method: 'post',
     params
   })
@@ -134,7 +134,7 @@ export function deleteLabel(params:object) {
 //查看网点详情
 export function detailByName(params:object) {
   return request({
-    url: 'api/network/detailByName',
+    url: 'network/detailByName',
     method: 'post',
     params
   })

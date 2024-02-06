@@ -4,7 +4,7 @@ import request from '@/utils/system/request'
 // 获取列表数据
 export function listForLoan(params:object) {
   return request({
-    url: 'api/user/credited/listForLoan',
+    url: 'user/credited/listForLoan',
     method: 'post',
     params
   })
@@ -12,7 +12,7 @@ export function listForLoan(params:object) {
 // 获取渠道列表数据
 export function getChannelList(params:object) {
   return request({
-    url: 'api/network/getChannelList',
+    url: 'network/getChannelList',
     method: 'get',
     params
   })
@@ -21,7 +21,7 @@ export function getChannelList(params:object) {
 //设置用户移交法务
 export function setTransferLegal(params:object) {
   return request({
-    url: 'api/user/setTransferLegal',
+    url: 'user/setTransferLegal',
     method: 'post',
     params
   })
@@ -30,7 +30,7 @@ export function setTransferLegal(params:object) {
 //查看客户详情信息
 export function getExamineDetail(params:object) {
   return request({
-    url: 'api/credit/examine/detail',
+    url: 'credit/examine/detail',
     method: 'get',
     params
   })
@@ -39,7 +39,7 @@ export function getExamineDetail(params:object) {
 //查看账单
 export function getBillList(params:object) {
   return request({
-    url: 'api/bill/list',
+    url: 'bill/list',
     method: 'get',
     params
   })
@@ -48,7 +48,7 @@ export function getBillList(params:object) {
 //查看父账单
 export function getDetailByBillNo(params:object) {
   return request({
-    url: 'api/bill/getDetailByBillNo',
+    url: 'bill/getDetailByBillNo',
     method: 'get',
     params
   })
@@ -56,7 +56,7 @@ export function getDetailByBillNo(params:object) {
 //查看合并账单
 export function getDetailByMergeNo(params:object) {
   return request({
-    url: 'api/bill/getDetailByMergeNo',
+    url: 'bill/getDetailByMergeNo',
     method: 'get',
     params
   })
@@ -65,7 +65,7 @@ export function getDetailByMergeNo(params:object) {
 //设置移交渠道
 export function setTransferChannel(params:object) {
   return request({
-    url: 'api/user/setTransferChannel',
+    url: 'user/setTransferChannel',
     method: 'post',
     params
   })
